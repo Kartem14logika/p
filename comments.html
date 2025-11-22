@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Коментарі</title>
+    <link rel="stylesheet" href="b.css" />
+  </head>
+  <body>
+    <a href="index.html" class="nav-button">← На головну</a>
+
+    <h2>Залиште коментар</h2>
+
+    <input type="text" id="inputText" placeholder="Введіть текст" />
+    <button onclick="addNewItem()" id="commentSubmitButton">Надіслати</button>
+
+    <div id="itemsContainer"></div>
+
+    <script>
+      function addNewItem() {
+        const inputTextElement = document.getElementById("inputText");
+        const inputValue = inputTextElement.value;
+        if (inputValue.trim() === "") return;
+
+        const container = document.getElementById("itemsContainer");
+        const newItemDiv = document.createElement("div");
+        newItemDiv.classList.add("item-box");
+
+        const newInputField = document.createElement("input");
+        newInputField.type = "text";
+        newInputField.value = inputValue;
+        newInputField.readOnly = true;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Видалити";
+        deleteButton.onclick = () => container.removeChild(newItemDiv);
+
+        const likeButton = document.createElement("button");
+        likeButton.textContent = "Сподобалось";
+        likeButton.onclick = () => {
+          newItemDiv.classList.add("liked");
+          newItemDiv.classList.remove("disliked");
+        };
+
+        const dislikeButton = document.createElement("button");
+        dislikeButton.textContent = "Не корисно";
+        dislikeButton.onclick = () => {
+          newItemDiv.classList.add("disliked");
+          newItemDiv.classList.remove("liked");
+        };
+
+        newItemDiv.appendChild(newInputField);
+        newItemDiv.appendChild(deleteButton);
+        newItemDiv.appendChild(likeButton);
+        newItemDiv.appendChild(dislikeButton);
+        container.appendChild(newItemDiv);
+
+        inputTextElement.value = "";
+      }
+    </script>
+  </body>
+</html>
